@@ -52,37 +52,35 @@ app.post('/login',async(req,res)=>
     {
         try
         {
-        const check=await user.findOne({email:email})
-          if(check)
+        const checkUser=await user.findOne({email:email})
+          if(checkUser)
             {
-                const comparePassword=await bcrypt.compare(password,check.password)
-                if(comparePassword)
+                const checkPassword=await bcrypt.compare(password,checkUser.password)
+                if(checkPassword)
                 {
-                    const token=jwt.sign({userId:check._id,email:check.email},process.env.SECRET_KEY,{expiresIn:'10m'})
-                    res.status(200).json({token:token})
+                    const token=jwt.sign({userId:checkUser._id,email:checkUser.email},
+                      process.env.SECRET_KEY,{expiresIn:'10m'})
+                      res.status(200).json({token:token})
                 }
                 else
                 {
-                    return res.status(400).send('wrong password')
+                    return res.status(400).send('Password is wrong')
                 }
             }
             else
             {
-                return res.status(400).send('user not found')
+                return res.status(400).send('User not found')
             }
         }
         catch(error)
         {
-            return res.status(400).send('could not log in')
+            return res.status(400).send('Cant able to LogIn')
         }
     }
     else
     {
-        return res.status(400).send('provide email and password')
+        return res.status(400).send('give email and password')
     }
 })
-
-
-
 
 app.listen(PORT,()=>{console.log(`Project is running at ${PORT} port.`);})
