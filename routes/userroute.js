@@ -5,29 +5,26 @@ const bcrypt= require('bcrypt')
 const parser=require('body-parser')
 const randomstring=require('randomstring')
 const jwt=require('jsonwebtoken')
-const user=require('../Schemas/users')
+const userS=require('../Schemas/user')
 require('../config/database').connect();
 const router=express.Router();
-const User = require('../Schemas/users')
 
 
 router.post('/register',formidable(),async function(req,res){
     let{firstname,lastname,email,password}=req.fields;
     if(!(firstname && lastname && email && password)){
-    res.status(400).send('please enter the all details..!')
+    res.status(400).send('All the inputs are required...')
     }
     else{
 
-       if(await User.findOne({email})){
-        res.send("User already exist")
+       if(await userS.findOne({email})){
+        res.send("User already existed...")
        }
        else{
         const vtoken=randomstring.generate()
-
-
         let enc_password= await bcrypt.hash(password,10)
         
-      let user = await User.create({
+      let user = await userS.create({
                 firstname:firstname,
                 lastname:lastname,
                 email:email,
@@ -48,25 +45,24 @@ router.post('/register',formidable(),async function(req,res){
 })
 
 router.post('/login', formidable(), async function (req, res){
-    let {email,password} = req.fields
-    if (! (email && password)){
-        res.status(400).send('Provide all the inputs')
+    let {email,password} = req.fields;
+    if (!(email && password)){
+        res.status(400).send(' All the inputs are required...')
     }
     else{
-        let user = await User.findOne({email})
+        let user = await userS.findOne({email})
 
         if (user && (await bcrypt.compare(password, user.password)))
         {
             let token = jwt.sign({ user_id:user._id, email},
                 process.env.TOKEN_KEY,
-                 { expiresIn: "5h" });
+                 { expiresIn: "2h" });
 
             user.token = token
-
             res.json(user)
         }
         else{
-            res.status(403).send('Incorrect username or password!!')
+            res.status(400).send('Username or Password is incorrect...!!')
         }
     }
 });

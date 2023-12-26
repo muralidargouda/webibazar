@@ -1,30 +1,42 @@
 const express = require('express');
 const router = express.Router();
 const formidable = require('express-formidable');
-const Cart = require('./Schemas/cart');
-const Product = require('./Schemas/product');
+const cartS = require('../Schemas/cart');
+const productS = require('../Schemas/product');
+const userS = require('../Schemas/user');
 
-router.post('/add-to-cart', formidable(), async (req, res) => {
+router.post('/add_to_cart', formidable(), async (req, res) => {
   try {
-    const { user, items } = req.fields;
+    const { user,items } = req.fields;
+    let person= await userS.findById(user);
 
-    let cart = await Cart.findOne({ user });
-
-    if (!cart) {
-      cart = await Cart.create({ user, items: [] });
+    if (!person) {
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    const itemsArray = Array.isArray(items) ? items : [items];
+    let cart = await cartS.findOne({ user });
 
-    for (const item of itemsArray) {
+    if (!cart) {
+      cart = await cartS.create({ user, items: [] });
+      await userS.findByIdAndUpdate(user, { $set: { cartId: cart._id } });
+
+    }
+    const abc=[];
+    for (const item of items) {
       const { product: productId, quantity } = item;
 
-      const pDetails = await Product.findById(productId);
-
-      if (!pDetails) {
-        return res.status(404).json({ error: 'Product is not found' });
+      const pDetails = await productS.findById(productId);
+      if (!pDetails) 
+      {
+       abc.push({ error: 'Product is not found' });
+        continue;
       }
 
+      const avlQuantity = pDetails.inventory || 0;
+      if (quantity > avlQuantity) {
+        abc.push('No enough quantity of product');
+        continue; 
+      }
       const itemExist = cart.items.find(item => item.product.equals(pDetails._id));
 
       if (itemExist) {
@@ -34,20 +46,23 @@ router.post('/add-to-cart', formidable(), async (req, res) => {
       }
     }
     await cart.save();
-    res.json(cart);
-     } 
+
+    if(abc.length==0) res.json(cart)
+
+    else  res.json({abc})
+    } 
      catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-router.get('/get-cart/:userId', formidable(), async (req, res) => {
+router.get('/get_cart/:userId', formidable(), async (req, res) => {
   try {
-    const userId = req.query.userId;
-    const cart = await Cart.findOne({ user: userId }).populate('items.product', 'name price');
+    const userId = req.params.userId;
+    const cart = await cartS.findOne({ user: userId })
 
     if (!cart) {
-      return res.status(404).json({ error: 'Cart did not found' });
+      return res.status(404).json({ error: 'Cart is not found ,plz check' });
     }
     res.json(cart);
   } catch (error) {
