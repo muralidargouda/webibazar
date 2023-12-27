@@ -20,7 +20,7 @@ router.post('/createV',formidable(), async (req, res) => {
       company,
       about,
       vendorInfo: {
-        email: vendorInfo.email,
+        email: vendorInfo.email ,
         phoneNumber: vendorInfo.phoneNumber,
         address: vendorInfo.address,
       }
@@ -31,7 +31,7 @@ router.post('/createV',formidable(), async (req, res) => {
      res.json(vendor);
     } 
     catch (error) {
-        res.status(500).json("Inter server Error");
+        res.status(500).json({error: error.message});
     }
 });
 

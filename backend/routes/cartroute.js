@@ -28,13 +28,13 @@ router.post('/add_to_cart', formidable(), async (req, res) => {
       const pDetails = await productS.findById(productId);
       if (!pDetails) 
       {
-       abc.push({ error: 'Product is not found' });
+       abc.unshift({ error: 'Product is not found' });
         continue;
       }
 
       const avlQuantity = pDetails.inventory || 0;
       if (quantity > avlQuantity) {
-        abc.push('No enough quantity of product');
+        abc.unshift('No enough quantity of product');
         continue; 
       }
       const itemExist = cart.items.find(item => item.product.equals(pDetails._id));

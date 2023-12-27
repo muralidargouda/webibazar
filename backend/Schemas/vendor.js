@@ -13,8 +13,8 @@ const vendorSchema = new mongoose.Schema({
       ref: 'product',
     }],
   vendorInfo: {
-    email: {type: String,required: true,},
-    phoneNumber: String,
+    email: {type: String,},
+    phoneNumber: {type:String},
     address: {
       street: String,
       place: String,
