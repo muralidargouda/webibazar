@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
       return res.json(productExist);
     }
             
-            const product = await product.create({
+            const product = await productS.create({
             name: name,
             description: description,
             price: price,
@@ -55,7 +55,7 @@ const storage = multer.diskStorage({
         res.json(product)
     }
        catch (error) {
-          res.status(400).send("Error in adding the product");
+          res.status(400).json({error: error.message});
         }
       });
 

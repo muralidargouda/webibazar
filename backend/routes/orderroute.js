@@ -46,10 +46,10 @@ router.post('/addorder',formidable(), async (req, res) => {
 //Totaling the amount
 
   const totalPrice = itemsOrdered.reduce((total, item) => {
-    return total + (item.price * item.quantity)
+    return total + item.price * item.quantity
   },0);
 
-  console.log('totalAmount:', totalAmount);
+  console.log('totalPrice:', totalPrice);
     for (let item of cart.items) {
       const product = await productS.findById(item.product);
       product.inventory -= parseInt(item.quantity ,10);

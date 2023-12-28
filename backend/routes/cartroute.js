@@ -56,7 +56,7 @@ router.post('/add_to_cart', formidable(), async (req, res) => {
   }
 });
 
-router.get('/get_cart/:userId', formidable(), async (req, res) => {
+router.get('/get_from_cart/:userId', formidable(), async (req, res) => {
   try {
     const userId = req.params.userId;
     const cart = await cartS.findOne({ user: userId })
@@ -66,7 +66,7 @@ router.get('/get_cart/:userId', formidable(), async (req, res) => {
     }
     res.json(cart);
   } catch (error) {
-    res.status(500).json({ error:'Internal Server Error'});
+    res.status(500).json({ error:error.message});
   }
 });
 

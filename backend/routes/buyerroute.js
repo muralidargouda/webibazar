@@ -6,7 +6,7 @@ const userS=require('../Schemas/user');
 
 router.post('/create_buyer', formidable(), async (req, res) => {
   try {
-    const { user,address,paymentModes } = req.fields;
+    const { user,address } = req.fields;
 
     if (!user) {
       return res.status(400).json({ error: 'User ID is must required' });

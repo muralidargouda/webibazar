@@ -12,17 +12,16 @@ const vendorSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'product',
     }],
-  vendorInfo: {
-    email: {type: String,},
-    phoneNumber: {type:String},
-    address: {
+    Vemail: {type: String},
+    VphoneNumber: {type:String},
+    Vaddress: {
       street: String,
       place: String,
       pinCode: String,
       state: String,
       country: String
     },
-  },
+  
   rating: {
     type: Number,default: 0,
   },

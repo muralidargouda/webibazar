@@ -8,7 +8,7 @@ const userS=require('../Schemas/user');
 
 router.post('/createV',formidable(), async (req, res) => {
   try {
-    const { user,company,about,vendorInfo } = req.fields;
+    const { user,company,about,Vemail, VphoneNumber, Vaddress } = req.fields;
     const vendorExist = await vendorS.findOne({ user:user._id });
 
     if (vendorExist) {
@@ -19,11 +19,10 @@ router.post('/createV',formidable(), async (req, res) => {
       user,
       company,
       about,
-      vendorInfo: {
-        email: vendorInfo.email ,
-        phoneNumber: vendorInfo.phoneNumber,
-        address: vendorInfo.address,
-      }
+      Vemail ,
+      VphoneNumber,
+      Vaddress,
+   
     });
 
     await userS.findByIdAndUpdate(user, { $set: { role: 'vendor', vendorId: vendor._id } });
