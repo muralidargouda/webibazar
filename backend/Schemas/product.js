@@ -7,7 +7,7 @@ const prodSchema=new mongoose.Schema({
     price: {type: Number,required: true},
     inventory: {type: Number,default: 0},
     quantity: {type: Number, required:true},
-    // image: {type: String, default: ''},
+    image: {type: String},
     orders:[
         { type: mongoose.Schema.Types.ObjectId,
           ref: 'order',

@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
     try{
     
             let{name,description,price,category,inventory,vendorId}=req.body;
-            // const imageUrl = req.file.filename;
+            const imageUrl = req.file.filename;
         const vendor = await vendorS.findById(vendorId);
         if (!vendor) {
           return res.status(404).send('Vendor is not found');
@@ -45,7 +45,7 @@ const storage = multer.diskStorage({
             inventory: inventory,
             quantity: parseInt(inventory, 10) || 0,
 
-            // imageUrl:imageUrl,
+            imageUrl:imageUrl,
         })
     
         vendor.products.push(product._id);
