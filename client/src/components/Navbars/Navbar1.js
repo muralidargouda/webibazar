@@ -1,5 +1,6 @@
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import contact from '../../contact';
 
 
 export default function Navbar1() {
@@ -34,7 +35,7 @@ export default function Navbar1() {
 
 
       <li class=" px-5 nav-item">
-        <a class="text-light nav-link" href="#">Contact Us</a>
+        <a class="text-light nav-link" href="contact">Contact Us</a>
       </li>
       <li class="nav-item">
         <a class="text-light nav-link" href="#">Features</a>

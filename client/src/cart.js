@@ -5,7 +5,6 @@ export default function cart (){
         <Accordions/>
         <Advertise/>
         <Late1/>
-        <Topcategory/>
        <Footer />
        </>
     )

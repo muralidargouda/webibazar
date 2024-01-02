@@ -44,7 +44,6 @@ const storage = multer.diskStorage({
             vendorId: vendorId,
             inventory: inventory,
             quantity: parseInt(inventory, 10) || 0,
-
             imageUrl:imageUrl,
         })
     
@@ -61,11 +60,11 @@ const storage = multer.diskStorage({
 
 //getting the products with filter of category
 
-      router.get('/getproducts', async function(req, res) {
+      router.get('/getproducts/:id', async function(req, res) {
 
         try {
-          const { category } = req.query;
-          const query = category ? { category } : {};
+          const productId = req.params.id;
+          const query = productId ? { productId } : {};
           const products = await productS.find(query);
           res.json(products);
           } 

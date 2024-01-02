@@ -11,22 +11,20 @@ import Latest from './components/Latest';
 import TopNav from './components/Navbars/TopNav';
 import Search from './components/Navbars/Search1';
 import Featured from './Product/fetchpro';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from './home';
-import Shop from './shop/shop';
-
-const App = ()=>{
-
+// import { home } from '/images/open.jpeg';
+const Home = () => {
     return(
-
-        <div className="">
-    <BrowserRouter>
-    <Routes>
-         <Route path="/" element={<Home/>} />
-        <Route path="/shop" element={<Shop/>} />
-    </Routes>
-    </BrowserRouter>
-        </div>
+        <div>
+        <TopNav/>
+        <Search/>
+       <Navbar1/>
+       <Accordions/>
+       <Advertise/>
+       <Topcategory/>
+       <Latest/>
+       <Featured/>
+      <Footer/>
+      </div>
     )
 }
-export default App;
+export default Home;

@@ -29,7 +29,7 @@ export default function Footer() {
             <Form.Control
               type="text"
               placeholder="please enter email..."
-              className=" float-right pe-5 pt-2 pb-2 ms-5 mr-sm-2"
+              className=" float-right pe-5 ps-5 ms-4 mr-sm-2"
             />
          
             <Button className='  pt-3 pb-3 float-right bg-warning' type="submit">Subscribe</Button>
@@ -144,7 +144,7 @@ export default function Footer() {
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © 2021 Copyright:
         <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
+          Demo theme All Rights Reserved
         </a>
       </div>
       <hr/>

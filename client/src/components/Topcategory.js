@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-
-
 function Topcategory() {
-    const [products, setproducts] = useState();
-    useEffect(() => {
-        const getproducts = async () => {
-            try {
-                const response = await axios.get(
-                    'http://localhost:5000/product/getproducts'
-                );
-                const data = await response.data;
-                setproducts(data);
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getproducts();
-    }, []);
-
-
+  
+    const imgs = [
+        {src:'./images/t1.jpg'},
+        {src:'./images/t2.jpg'},
+        {src:'./images/t3.jpg'},
+        {src:'./images/t1.jpg'}
+    ]
     return (
 
         <div className='container md-3'>
@@ -29,11 +14,11 @@ function Topcategory() {
             </div>
             <div className='row'>
 
-                {products ? (
-                    products.map((item, index) => (
+                {imgs ? (
+                    imgs.map((item, index) => (
                         <div key={index} className='col  my-3 fs-6'>
                             <div className='card '>
-                                <img src="images/t1.jpg" className="img-fluid position-relative" alt="images" height={150} />
+                                <img src={item.src} className="img-fluid position-relative" alt="images" height={150} />
                             </div>
                         </div>
                     ))
