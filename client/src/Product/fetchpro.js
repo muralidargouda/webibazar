@@ -13,7 +13,6 @@ const Featured = () => {
         console.error('Error fetching products:', error);
       }
     };
-
     fetchProducts();
   }, [])
 

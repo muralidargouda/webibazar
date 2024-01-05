@@ -19,7 +19,6 @@ const Shop=()=>{
         console.error('Error from getting products:', error);
       }
     };
-
     getProducts();
   }, []);
 

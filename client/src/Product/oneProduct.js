@@ -21,6 +21,7 @@ function oneProduct(addToCart) {
             });
     }, [productId]);
 
+    
     if (!product) {
         return <div>Loading...</div>;
     }
